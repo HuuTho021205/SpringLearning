@@ -1,4 +1,4 @@
-package com.example.corespring.Demo.Warrior;
+package com.example.corespring.demo.component.warrior;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -1,4 +1,4 @@
-package com.example.corespring.Demo.Warrior;
+package com.example.corespring.demo.component.warrior;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.example.corespring.Demo.sendNotification;
+package com.example.corespring.demo.component.email;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
