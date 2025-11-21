@@ -6,12 +6,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SmartBulb {
-    @Value("${smart.home.bulb.color}")
-    private String color;
+    private final String color;
+    private final int birghtness;
 
-    @Value("${smart.home.bulb.brightness}")
-    private int birghtness;
-
+    public SmartBulb( @Value("${smart.home.bulb.color}") String color, @Value("${smart.home.bulb.brightness}") int birghtness){
+        this.color = color;
+        this.birghtness = birghtness;
+    }
     @PostConstruct
     public void turnOn(){
         System.out.println("----------------------------");
