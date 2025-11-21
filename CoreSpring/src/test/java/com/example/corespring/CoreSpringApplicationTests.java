@@ -5,6 +5,8 @@ import com.example.corespring.demo.service.OrderService;
 import com.example.corespring.demo.service.StudentService;
 import com.example.corespring.demo.component.warrior.Warrior;
 import com.example.corespring.demo.component.email.NotificationClient;
+import com.example.corespring.lombokdemo.User;
+import com.example.corespring.luyentap.MarketingService;
 import com.example.corespring.luyentap.PaymentService;
 import com.example.corespring.luyentap.SmartBulb;
 import com.example.corespring.luyentap.scope.Printer;
@@ -16,7 +18,7 @@ import java.util.List;
 
 @SpringBootTest
 class CoreSpringApplicationTests {
-    @Autowired
+   /* @Autowired
     private Warrior warrior;
 
     @Autowired
@@ -39,7 +41,12 @@ class CoreSpringApplicationTests {
 
     @Autowired
     private Printer printer;
+*/
+    @Autowired
+    private MarketingService marketingService;
 
+
+/*
     @Test
     void testGame() {
         System.out.println("------TestGame-------");
@@ -89,5 +96,24 @@ class CoreSpringApplicationTests {
         printer.printCustomerTicket();
         System.out.println("Vé 2");
         printer.printCustomerTicket();
+    }
+*/
+
+    @Test
+    void TestMarketing(){
+        marketingService.sendEmail("khachhang@gmail.com");
+    }
+
+    @Test
+    void testLombok(){
+        User user1 = new User();
+        user1.setId(1l);
+        user1.setName("Trần Đình Hữu Thọ");
+        user1.setEmail("A@gmail.com");
+
+        User user2 = new User(2L,"Hữu Thọ","b@gmail.com");
+
+        System.out.println("User1: " + user1);
+        System.out.println("User2: " + user2);
     }
 }
