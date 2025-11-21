@@ -5,6 +5,7 @@ import com.example.corespring.demo.service.OrderService;
 import com.example.corespring.demo.service.StudentService;
 import com.example.corespring.demo.component.warrior.Warrior;
 import com.example.corespring.demo.component.email.NotificationClient;
+import com.example.corespring.luyentap.SmartBulb;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,6 +28,9 @@ class CoreSpringApplicationTests {
 
     @Autowired
     private DatabaseConnection databaseConnection;
+
+    @Autowired
+    private SmartBulb smartBulb;
 
     @Test
     void testGame() {
@@ -61,5 +65,9 @@ class CoreSpringApplicationTests {
         System.out.println("-----Bắt Đầu Test-----");
         databaseConnection.queryData();
         System.out.println("-----Kết Thúc Test-----");
+    }
+
+    @Test
+    void TestSmartBulb(){
     }
 }
