@@ -5,7 +5,9 @@ import com.example.corespring.demo.service.OrderService;
 import com.example.corespring.demo.service.StudentService;
 import com.example.corespring.demo.component.warrior.Warrior;
 import com.example.corespring.demo.component.email.NotificationClient;
+import com.example.corespring.luyentap.PaymentService;
 import com.example.corespring.luyentap.SmartBulb;
+import com.example.corespring.luyentap.scope.Printer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,6 +33,12 @@ class CoreSpringApplicationTests {
 
     @Autowired
     private SmartBulb smartBulb;
+
+    @Autowired
+    private PaymentService paymentService;
+
+    @Autowired
+    private Printer printer;
 
     @Test
     void testGame() {
@@ -69,5 +77,17 @@ class CoreSpringApplicationTests {
 
     @Test
     void TestSmartBulb(){
+    }
+
+    @Test
+    void TestPaymentAll(){
+        paymentService.payAll();
+    }
+    @Test
+    void TestPrinter(){
+        System.out.println("Vé 1");
+        printer.printCustomerTicket();
+        System.out.println("Vé 2");
+        printer.printCustomerTicket();
     }
 }
