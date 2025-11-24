@@ -1,0 +1,29 @@
+### 1. Test xem danh sách (Giống trình duyệt)
+GET http://localhost:8080/api/students
+
+### 2. Test thêm sinh viên mới (POST)
+POST http://localhost:8080/api/students
+Content-Type: application/json
+
+{
+  "id": 3,
+  "name": "Sinh Viên Mới Toanh",
+  "email": "new@gmail.com",
+  "age": 18
+}
+
+### 3. Test SỬA tên sinh viên số 1 (PUT)
+PUT http://localhost:8080/api/students/1
+Content-Type: application/json
+
+{
+  "name": "Nguyen Van A (Da Sua Ten)",
+  "email": "a_updated@gmail.com",
+  "age": 25
+}
+
+### 4. Test XÓA sinh viên số 2 (DELETE)
+DELETE http://localhost:8080/api/students/2
+
+### 5. Xem lại danh sách (Kiểm tra xem số 1 đổi tên chưa và số 2 mất chưa)
+GET http://localhost:8080/api/students
