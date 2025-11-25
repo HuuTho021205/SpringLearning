@@ -1,29 +1,31 @@
 ### 1. Test xem danh sách (Giống trình duyệt)
-GET http://localhost:8080/api/students
+GET http://localhost:8080/api/todos
 
-### 2. Test thêm sinh viên mới (POST)
-POST http://localhost:8080/api/students
+### 2. Test thêm công việc mới (POST)
+POST http://localhost:8080/api/todos
 Content-Type: application/json
 
 {
-  "id": 3,
-  "name": "Sinh Viên Mới Toanh",
-  "email": "new@gmail.com",
-  "age": 18
+  "title": "Công việc mới"
 }
 
-### 3. Test SỬA tên sinh viên số 1 (PUT)
-PUT http://localhost:8080/api/students/1
+### 3. Test SỬA công việc số 1 (PUT)
+PUT http://localhost:8080/api/todos/1
 Content-Type: application/json
 
 {
-  "name": "Nguyen Van A (Da Sua Ten)",
-  "email": "a_updated@gmail.com",
-  "age": 25
+  "title": "Ăn kem (Da Sua Title)"
 }
 
-### 4. Test XÓA sinh viên số 2 (DELETE)
-DELETE http://localhost:8080/api/students/2
+### 4. Test XÓA công việc số 2 (DELETE)
+DELETE http://localhost:8080/api/todos/2
 
+### 5. Test Đánh Dấu công việc số 3 (Patch)
+PATCH http://localhost:8080/api/todos/3
+Content-Type: application/json
+
+{
+  "completed": true
+}
 ### 5. Xem lại danh sách (Kiểm tra xem số 1 đổi tên chưa và số 2 mất chưa)
-GET http://localhost:8080/api/students
+GET http://localhost:8080/api/todos
