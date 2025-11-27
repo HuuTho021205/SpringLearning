@@ -6,11 +6,11 @@ POST http://localhost:8080/api/todos
 Content-Type: application/json
 
 {
-  "title": "Công việc mới"
+  "title": ""
 }
 
 ### 3. Test SỬA công việc số 1 (PUT)
-PUT http://localhost:8080/api/todos/1
+PUT http://localhost:8080/api/todos/9999
 Content-Type: application/json
 
 {
@@ -18,14 +18,21 @@ Content-Type: application/json
 }
 
 ### 4. Test XÓA công việc số 2 (DELETE)
-DELETE http://localhost:8080/api/todos/2
+DELETE http://localhost:8080/api/todos/3
 
 ### 5. Test Đánh Dấu công việc số 3 (Patch)
-PATCH http://localhost:8080/api/todos/3
+PATCH http://localhost:8080/api/todos/9999
 Content-Type: application/json
 
 {
   "completed": true
+}
+### 6. Thêm công việc mới
+POST http://localhost:8080/api/todos
+Content-Type: application/json
+
+{
+"title": "Học Bài"
 }
 ### 5. Xem lại danh sách (Kiểm tra xem số 1 đổi tên chưa và số 2 mất chưa)
 GET http://localhost:8080/api/todos
