@@ -1,6 +1,6 @@
 package com.example.todo.controllertodo;
 
-import com.example.todo.Todo;
+import com.example.todo.dto.TodoDTO;
 import com.example.todo.servicetodo.TodoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,26 +16,26 @@ public class TodoController {
     public final TodoService serviceTodo;
 
     @GetMapping
-    public ResponseEntity<List<Todo>> getList() {
+    public ResponseEntity<List<TodoDTO>> getList() {
         System.out.println("Khách hàng đang xem danh sách việc");
         return ResponseEntity.ok(serviceTodo.getAll());
     }
 
     @PostMapping
 
-    public ResponseEntity<Todo> add(@Valid @RequestBody Todo todo) {
+    public ResponseEntity<TodoDTO> add(@Valid @RequestBody TodoDTO todoDTO) {
         System.out.println("Khách đang thêm việc mới");
-        return ResponseEntity.ok(serviceTodo.add(todo));
+        return ResponseEntity.ok(serviceTodo.add(todoDTO));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Todo> updateTitle(@PathVariable Long id, @RequestBody Todo todo) {
+    public ResponseEntity<TodoDTO> updateTitle(@PathVariable Long id, @RequestBody TodoDTO todoDTO) {
         System.out.println("Khách đang sửa title");
-        return ResponseEntity.ok(serviceTodo.updateTitle(id,todo));
+        return ResponseEntity.ok(serviceTodo.updateTitle(id,todoDTO));
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Todo> updateStatus(@PathVariable Long id, @RequestBody Todo todo) {
+    public ResponseEntity<TodoDTO> updateStatus(@PathVariable Long id) {
         System.out.println("Khách đang sửa status");
         return ResponseEntity.ok(serviceTodo.updateStatus(id));
     }

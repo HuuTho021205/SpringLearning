@@ -9,6 +9,16 @@ Content-Type: application/json
   "title": ""
 }
 
+### Test thêm category
+POST http://localhost:8080/api/todos
+Content-Type: application/json
+
+{
+  "title": "Học bài",
+  "categoryId": 1,
+  "completed": false
+}
+
 ### 3. Test SỬA công việc số 1 (PUT)
 PUT http://localhost:8080/api/todos/9999
 Content-Type: application/json

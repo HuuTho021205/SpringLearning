@@ -1,4 +1,4 @@
-package com.example.todo;
+package com.example.todo.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -18,4 +18,8 @@ public class Todo {
     @NotBlank(message = "Tiêu đề không được để trống")
     private String title;
     private boolean completed;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 }

@@ -1,7 +1,10 @@
 package com.example.todo.servicetodo;
 
-import com.example.todo.Todo;
+import com.example.todo.entity.Category;
+import com.example.todo.entity.Todo;
+import com.example.todo.dto.TodoDTO;
 import com.example.todo.exception.TodoNotFoundException;
+import com.example.todo.repotodo.CategoryRepository;
 import com.example.todo.repotodo.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,35 +15,40 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TodoService {
     private final TodoRepository repoTodo;
+    private final CategoryRepository repoCategory;
     //1.Lấy danh sách
-    public List<Todo> getAll(){
+    public List<TodoDTO> getAll(){
         // Jpa tự động tạo câu lệnh sql select * from todos
-        return repoTodo.findAll();
+        return repoTodo.findAll().stream()
+                .map(todo -> toDTO(todo))
+                .toList();
     }
 //    2. Thêm mới
-    public Todo add(Todo todo){
+    public TodoDTO add(TodoDTO dto){
+        Todo todo = toEntity(dto);
         // Không cần tự tính id vì set identity ở class todo
-        todo.setCompleted(false);
         // sql server tự tạo câu lệnh insert into
-        return repoTodo.save(todo);
+        Todo savedTodo = repoTodo.save(todo);
+        return toDTO(savedTodo);
     }
 //  3. sửa tiêu đề không tìm thấy id là ném lỗi luôn
-    public Todo updateTitle (Long id, Todo newInfo) {
+    public TodoDTO updateTitle (Long id, TodoDTO newInfoDTO) {
         // dùng hàm findbyid để database tìm hộ
         Todo todo = repoTodo.findById(id)
                 .orElseThrow(() -> new TodoNotFoundException(id)); //ném lôĩ
-        todo.setTitle((newInfo.getTitle()));
+        todo.setTitle((newInfoDTO.getTitle()));
 
+        Todo savedTodo = repoTodo.save(todo);
         // jpa tự tạo câu lệnh sql update todos set ... where id
-        return repoTodo.save(todo);
+        return toDTO(savedTodo);
     }
     //4. sửa status
-    public Todo updateStatus (Long id ){
+    public TodoDTO updateStatus (Long id ){
         Todo todo = repoTodo.findById(id).orElseThrow(()-> new TodoNotFoundException(id));
 
             todo.setCompleted(!todo.isCompleted());
-
-            return repoTodo.save(todo);
+            Todo savedTodo = repoTodo.save(todo);
+            return toDTO(savedTodo);
     }
 //    5.Xóa
     public boolean delete(Long id){
@@ -51,5 +59,36 @@ public class TodoService {
         }
         return false;
 
+    }
+    // chuyển dto sang entity
+    public Todo toEntity(TodoDTO dto){
+        Todo todoEntity = new Todo();
+        todoEntity.setTitle(dto.getTitle());
+        todoEntity.setCompleted(false);
+
+        if (dto.getCategoryId() != null){
+            Category category = repoCategory.findById(dto.getCategoryId())
+                    .orElse(null);
+            todoEntity.setCategory(category);
+        }
+
+        return todoEntity;
+    }
+
+//    chuyển entity sang dto
+
+    public TodoDTO toDTO(Todo todo){
+        TodoDTO dto = new TodoDTO();
+
+        dto.setId(todo.getId());
+        dto.setTitle(todo.getTitle());
+        dto.setCompleted(false);
+
+        if (todo.getCategory() != null){
+            dto.setCategoryId(todo.getCategory().getCategoryID());
+            dto.setCategoryName(todo.getCategory().getCategoryName());
+        }
+
+        return dto;
     }
 }
