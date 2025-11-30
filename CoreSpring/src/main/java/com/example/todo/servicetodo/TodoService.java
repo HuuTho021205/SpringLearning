@@ -3,10 +3,13 @@ package com.example.todo.servicetodo;
 import com.example.todo.entity.Category;
 import com.example.todo.entity.Todo;
 import com.example.todo.dto.TodoDTO;
+import com.example.todo.entity.User;
 import com.example.todo.exception.TodoNotFoundException;
 import com.example.todo.repotodo.CategoryRepository;
 import com.example.todo.repotodo.TodoRepository;
+import com.example.todo.repotodo.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +19,7 @@ import java.util.List;
 public class TodoService {
     private final TodoRepository repoTodo;
     private final CategoryRepository repoCategory;
+    private final UserRepository userRepository;
     //1.Lấy danh sách
     public List<TodoDTO> getAll(){
         // Jpa tự động tạo câu lệnh sql select * from todos
@@ -25,7 +29,13 @@ public class TodoService {
     }
 //    2. Thêm mới
     public TodoDTO add(TodoDTO dto){
+//        Lấy username của người đang đăng nhập từ "Thẻ bài" (SecurityContext)
+        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+//        Tìm User đó trong Database
+        User currentUser = userRepository.findByUsername(currentUsername)
+                .orElseThrow(()-> new RuntimeException("Không tìm thấy người dùng"));
         Todo todo = toEntity(dto);
+        todo.setUser(currentUser);
         // Không cần tự tính id vì set identity ở class todo
         // sql server tự tạo câu lệnh insert into
         Todo savedTodo = repoTodo.save(todo);

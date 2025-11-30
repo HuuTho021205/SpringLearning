@@ -9,6 +9,28 @@ Content-Type: application/json
   "title": ""
 }
 
+### test register
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+    "username" : "admin",
+    "password" : "123456"
+}
+
+### test không có thẻ
+GET http://localhost:8080/api/todos
+Content-Type: application/json
+
+### test login
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "123456"
+}
+
 ### Test thêm category
 POST http://localhost:8080/api/todos
 Content-Type: application/json
@@ -46,3 +68,52 @@ Content-Type: application/json
 }
 ### 5. Xem lại danh sách (Kiểm tra xem số 1 đổi tên chưa và số 2 mất chưa)
 GET http://localhost:8080/api/todos
+
+
+### 1. Đăng nhập và Tự động lưu Token
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "123456"
+}
+
+### ---------------------------------------------------
+
+### 2. Lấy danh sách (Dùng biến token đã lưu)
+GET http://localhost:8080/api/todos
+# Dùng {{my_token}} để gọi cái token lúc nãy ra
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NDUxMjI0OSwiZXhwIjoxNzY0NTIwODg5fQ.whr153sUZptFB6atwj2Dx1IorAMTbyL6QypghnCPJUg
+
+### 3. Thêm mới Todo (Dùng biến token)
+POST http://localhost:8080/api/todos
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NDUxMjE1OSwiZXhwIjoxNzY0NTIwNzk5fQ.eXxe_dkP_i6xymrZw1IpvecS76uolCapsrpBbzycvh0
+
+{
+  "title": "Test tự động hóa Token",
+  "categoryId": 1
+}
+
+
+### ------------------
+
+### 1. Đăng nhập
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "123456"
+}
+
+### 2. Thêm Todo (Test gắn User)
+POST http://localhost:8080/api/todos
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NDUxNjI3OSwiZXhwIjoxNzY0NTI0OTE5fQ.fOhBXZmXwUTOpAe_f-8lQZ0ZTG5_SZGFGNUXxi01EmI
+
+{
+  "title": "Test chức năng bảo mật",
+  "categoryId": 1
+}
